@@ -1,7 +1,6 @@
 package com.KRunc.foodemo;
 
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,12 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.content.Intent;
-import android.widget.EditText;
-import android.os.Build;
 
 public class MainActivity extends ActionBarActivity {
-
-    public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +25,8 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-    public void sendMessage(View view){
-        Intent intent = new Intent(this, DisplayMessageActivity.class);
-        EditText editText = (EditText) findViewById(R.id.edit_message);
-        String message = editText.getText().toString();
-        intent.putExtra(EXTRA_MESSAGE, message);
+    public void gotoKeywordSearch(View view){
+        Intent intent = new Intent(this, KeywordSearchActivity.class);
         startActivity(intent);
     }
 
@@ -52,12 +44,12 @@ public class MainActivity extends ActionBarActivity {
         Intent intent;
         switch (item.getItemId()) {
             case R.id.action_search:
-                intent = new Intent(this, DisplayMessageActivity.class);
-                startActivity(intent);
+                //intent = new Intent(this, DisplayMessageActivity.class);
+                //startActivity(intent);
                 return true;
             case R.id.action_settings:
-                intent = new Intent(this, DisplayMessageActivity.class);
-                startActivity(intent);
+                //intent = new Intent(this, DisplayMessageActivity.class);
+                //startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

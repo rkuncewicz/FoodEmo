@@ -17,12 +17,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.KRunc.foodemo.DisplayMessageActivity"
-            android:label="@string/title_activity_display_message"
+            android:name="com.KRunc.foodemo.KeywordSearchActivity"
+            android:label="@string/title_activity_keyword_search"
             android:parentActivityName="com.KRunc.foodemo.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.KRunc.foodemo.MainActivity" />
+                android:value="MainActivity" />
         </activity>
     </application>
 

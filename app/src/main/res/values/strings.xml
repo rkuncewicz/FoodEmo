@@ -8,5 +8,11 @@
     <string name="title_activity_display_message">MyMessage</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_search">Action of Search</string>
+    <string name="intro_message">How would you like to cook today?</string>
+    <string name="mood_message">By Mood</string>
+    <string name="search_message">Search</string>
+    <string name="title_activity_keyword_search">KeywordSearchActivity</string>
+    <string name="keyword_message">Keywords</string>
+    <string name="keyword_text_message">Type in an ingredient or recipe to search...</string>
 
 </resources>
