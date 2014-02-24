@@ -49,7 +49,8 @@
             android:layout_weight="1"
             android:src="@drawable/mood_icon"
             android:scaleType="fitCenter"
-            android:background="@android:color/transparent"/>
+            android:background="@android:color/transparent"
+            android:onClick="gotoMoodSearch"/>
 
         <ImageButton android:id="@+id/search_button"
             android:layout_width="0dp"

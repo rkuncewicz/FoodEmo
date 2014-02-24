@@ -30,6 +30,11 @@ public class MainActivity extends ActionBarActivity {
         startActivity(intent);
     }
 
+    public void gotoMoodSearch(View view){
+        Intent intent = new Intent(this, MoodSelectionActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu items for use in the action bar

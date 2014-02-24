@@ -24,6 +24,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="MainActivity" />
         </activity>
+        <activity
+            android:name="com.KRunc.foodemo.MoodSelectionActivity"
+            android:label="@string/title_activity_mood_selection"
+            android:parentActivityName="com.KRunc.foodemo.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="MainActivity" />
+        </activity>
     </application>
 
 </manifest>

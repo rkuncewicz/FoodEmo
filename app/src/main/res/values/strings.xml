@@ -14,5 +14,10 @@
     <string name="title_activity_keyword_search">KeywordSearchActivity</string>
     <string name="keyword_message">Keywords</string>
     <string name="keyword_text_message">Type in an ingredient or recipe to search...</string>
+    <string name="title_activity_mood_selection">MoodSelectionActivity</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+    <string name="select_mood_message">How do you feel?</string>
 
 </resources>
