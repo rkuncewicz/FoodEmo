@@ -10,7 +10,7 @@
 
     <TextView android:id="@+id/keyword_text"
         android:text="@string/keyword_message"
-        android:textSize="60dp"
+        android:textSize="60sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <EditText android:id="@+id/edit_message"
@@ -26,6 +26,11 @@
         android:layout_alignParentRight="true"
         android:text="@string/button_send"
         android:onClick="searchRecipes" />
+    <TextView android:id="@+id/testText"
+        android:textSize="60sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_send" />
 
 
 </RelativeLayout>
