@@ -101,7 +101,7 @@ public class KeywordSearchActivity extends ActionBarActivity {
                     String name = match.get("recipeName").toString();
 
                     JSONArray urls = (JSONArray) match.get("smallImageUrls");
-                    List<String> imageUrls = new ArrayList<String>();
+                    ArrayList<String> imageUrls = new ArrayList<String>();
                     for (Object url : urls) {
                         imageUrls.add((String) url);
                     }

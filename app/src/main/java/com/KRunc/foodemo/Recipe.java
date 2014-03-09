@@ -3,6 +3,7 @@ package com.KRunc.foodemo;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,17 +12,16 @@ import java.util.List;
  */
 public class Recipe implements Parcelable {
     private String name;
-    private List<String> pictureUrls;
+    private String[] pictureUrls;
 
-    public Recipe(String name, List<String> pictureUrls){
+    public Recipe(String name, ArrayList<String> pictureUrls){
         this.name = name;
+        this.pictureUrls = pictureUrls.toArray(new String[pictureUrls.size()]);
+        //this.pictureUrls = pictureUrls;
     }
 
     public String getName() { return name; }
-    public List<String> getPictureUrls() { return pictureUrls; }
-
-    public void setName(String name) { this.name = name; }
-    public void setPictureUrl(List<String> pictureUrls) { this.pictureUrls = pictureUrls; }
+    public String[] getPictureUrls() { return pictureUrls; }
 
     @Override
     public int describeContents() {
@@ -31,7 +31,7 @@ public class Recipe implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(name);
-        parcel.writeList(pictureUrls);
+        parcel.writeStringArray(pictureUrls);
     }
 
     public static final Parcelable.Creator<Recipe> CREATOR = new Parcelable.Creator<Recipe>() {
@@ -46,6 +46,6 @@ public class Recipe implements Parcelable {
 
     private Recipe(Parcel in) {
         name = in.readString();
-        in.readList(pictureUrls, null);
+        pictureUrls = in.createStringArray();
     }
 }
