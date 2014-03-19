@@ -5,6 +5,10 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+    <uses-sdk
+        android:minSdkVersion="12"
+        android:targetSdkVersion="19" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -38,6 +42,14 @@
         <activity
             android:name="com.KRunc.foodemo.RecipeListActivity"
             android:label="@string/title_activity_recipe_list" >
+        </activity>
+        <activity
+            android:name="com.KRunc.foodemo.RecipeDescriptionActivity"
+            android:label="@string/title_activity_recipe_description"
+            android:parentActivityName="com.KRunc.foodemo.RecipeListActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="RecipeListActivity" />
         </activity>
     </application>
 

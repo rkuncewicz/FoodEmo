@@ -22,41 +22,31 @@ public class RecipeListActivity extends ActionBarActivity {
         ArrayList<Recipe> recipes = getIntent().getParcelableArrayListExtra("recipes");
 
         ArrayList<String> recipePictures = new ArrayList<String>();
-        for (Iterator<Recipe> i = recipes.iterator(); i.hasNext();){
-            Recipe recipe = i.next();
+        for (int i = 0; i < recipes.size(); i++){
+            Recipe recipe = recipes.get(i);
             String[] urls = recipe.getPictureUrls();
             for (int j = 0; j < urls.length; j++) {
                 urls[j] = urls[j].replace(".s.png",".l.png");
                 urls[j] = urls[j].replace(".s.jpg", ".l.jpg");
             }
-            recipePictures.add(urls[0]);
+            recipe.setPictureUrls(urls);
+            recipes.set(i, recipe);
         }
 
         GridView gridview = (GridView) findViewById(R.id.gridview);
-        ImageAdapter imgAdapter = new ImageAdapter(this);
-        imgAdapter.setPics(recipePictures);
+        ImageAdapter imgAdapter = new ImageAdapter(this, recipes);
         gridview.setAdapter(imgAdapter);
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 Toast.makeText(RecipeListActivity.this, "" + position, Toast.LENGTH_SHORT).show();
+                //TODO forward intent
             }
         });
-
-
-        Iterator iter = recipes.iterator();
-        if (iter != null){
-            while(iter.hasNext()) {
-                Recipe blah = (Recipe)iter.next();
-                System.out.println(blah.getName());
-            }
-        }
-
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.recipe_list, menu);
         return true;

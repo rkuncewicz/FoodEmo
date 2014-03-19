@@ -23,6 +23,10 @@ public class Recipe implements Parcelable {
     public String getName() { return name; }
     public String[] getPictureUrls() { return pictureUrls; }
 
+    public void setPictureUrls(String[] pictureUrls) {
+        this.pictureUrls = pictureUrls;
+    }
+
     @Override
     public int describeContents() {
         return 0;

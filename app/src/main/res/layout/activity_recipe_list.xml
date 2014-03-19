@@ -2,10 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.KRunc.foodemo.RecipeListActivity">
 
     <GridView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -13,7 +9,5 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:numColumns="2"
-        android:verticalSpacing="10dp"
-        android:horizontalSpacing="10dp"
         />
 </RelativeLayout>

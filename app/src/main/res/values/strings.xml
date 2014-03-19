@@ -20,5 +20,7 @@
     <string name="title_section3">Section 3</string>
     <string name="select_mood_message">How do you feel?</string>
     <string name="title_activity_recipe_list">RecipeListActivity</string>
+    <string name="title_activity_recipe_description">RecipeDescriptionActivity</string>
+    <string name="cook_me">Cook Me!</string>
 
 </resources>

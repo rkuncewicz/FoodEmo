@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
+import android.support.v4.util.LruCache;
 import android.util.Log;
 import android.widget.ImageView;
 
@@ -19,17 +20,30 @@ import java.lang.ref.WeakReference;
  * Created by certeis on 08/03/14.
  */
 public class ImageDownloader {
-    public void download(String url, ImageView imageView) {
-        BitmapDownloaderTask task = new BitmapDownloaderTask(imageView);
+    private OnTaskCompleted listener;
+    private int position;
+
+    public ImageDownloader (OnTaskCompleted listener, int position){
+        this.listener = listener;
+        this.position = position;
+    }
+
+    public ImageDownloader(OnTaskCompleted listener){
+        this.listener = listener;
+    }
+
+    public void download(String url, String recipeName) {
+        System.out.println(url);
+        BitmapDownloaderTask task = new BitmapDownloaderTask(recipeName);
         task.execute(url);
     }
 
     class BitmapDownloaderTask extends AsyncTask<String, Void, Bitmap> {
         private String url;
-        private final WeakReference<ImageView> imageViewReference;
+        private String recipeName;
 
-        public BitmapDownloaderTask(ImageView imageView) {
-            imageViewReference = new WeakReference<ImageView>(imageView);
+        public BitmapDownloaderTask(String recipeName) {
+            this.recipeName = recipeName;
         }
 
         @Override
@@ -45,13 +59,7 @@ public class ImageDownloader {
             if (isCancelled()) {
                 bitmap = null;
             }
-
-            if (imageViewReference != null) {
-                ImageView imageView = imageViewReference.get();
-                if (imageView != null) {
-                    imageView.setImageBitmap(bitmap);
-                }
-            }
+            listener.onTaskCompleted(bitmap, recipeName);
         }
     }
     static Bitmap downloadBitmap(String url) {
