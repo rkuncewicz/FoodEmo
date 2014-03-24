@@ -12,16 +12,39 @@ import java.util.List;
  */
 public class Recipe implements Parcelable {
     private String name;
+    private String id;
     private String[] pictureUrls;
+    private String totalTime;
+    private long totalTimeInSeconds;
+    private long rating;
+    private long numOfServing;
+    private String[] ingredientLines;
+    private String source;
 
-    public Recipe(String name, ArrayList<String> pictureUrls){
+    public Recipe(String name, String id, ArrayList<String> pictureUrls){
         this.name = name;
+        this.id = id;
         this.pictureUrls = pictureUrls.toArray(new String[pictureUrls.size()]);
-        //this.pictureUrls = pictureUrls;
+    }
+
+    public Recipe (String name, String id, ArrayList<String> pictureUrls, String totalTime, long totalTimeInSeconds,
+                        long rating, long numOfServing, ArrayList<String> ingredientLines, String source){
+        this.name = name;
+        this.id = id;
+        this.pictureUrls = pictureUrls.toArray(new String[pictureUrls.size()]);
+        this.totalTime = totalTime;
+        this.totalTimeInSeconds = totalTimeInSeconds;
+        this.rating = rating;
+        this.numOfServing = numOfServing;
+        this.ingredientLines = ingredientLines.toArray(new String[ingredientLines.size()]);
+        this.source = source;
     }
 
     public String getName() { return name; }
+    public String getId() { return id; }
     public String[] getPictureUrls() { return pictureUrls; }
+    public String[] getIngredientLines() { return ingredientLines; }
+    public String getTotalTime() { return totalTime; }
 
     public void setPictureUrls(String[] pictureUrls) {
         this.pictureUrls = pictureUrls;
@@ -35,6 +58,7 @@ public class Recipe implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(name);
+        parcel.writeString(id);
         parcel.writeStringArray(pictureUrls);
     }
 
@@ -50,6 +74,7 @@ public class Recipe implements Parcelable {
 
     private Recipe(Parcel in) {
         name = in.readString();
+        id = in.readString();
         pictureUrls = in.createStringArray();
     }
 }

@@ -1,5 +1,6 @@
 package com.KRunc.foodemo;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,12 +15,14 @@ import java.util.Iterator;
 import java.util.List;
 
 public class RecipeListActivity extends ActionBarActivity {
+    private ArrayList<Recipe> recipes;
+    private ImageAdapter imgAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_list);
-        ArrayList<Recipe> recipes = getIntent().getParcelableArrayListExtra("recipes");
+        recipes = getIntent().getParcelableArrayListExtra("recipes");
 
         ArrayList<String> recipePictures = new ArrayList<String>();
         for (int i = 0; i < recipes.size(); i++){
@@ -34,15 +37,24 @@ public class RecipeListActivity extends ActionBarActivity {
         }
 
         GridView gridview = (GridView) findViewById(R.id.gridview);
-        ImageAdapter imgAdapter = new ImageAdapter(this, recipes);
+        imgAdapter = new ImageAdapter(this, recipes);
         gridview.setAdapter(imgAdapter);
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 Toast.makeText(RecipeListActivity.this, "" + position, Toast.LENGTH_SHORT).show();
-                //TODO forward intent
+                forwardToRecipeDesc(position);
             }
         });
+    }
+
+    public void forwardToRecipeDesc (int id) {
+        Recipe recipe = recipes.get(id);
+
+        Intent intent = new Intent(this, RecipeDescriptionActivity.class);
+        intent.putExtra("recipe", recipe);
+        intent.putExtra("recipeImage", imgAdapter.getBitmapFromMemCache(recipe.getName()));
+        startActivity(intent);
     }
 
     @Override

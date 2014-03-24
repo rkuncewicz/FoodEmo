@@ -100,13 +100,15 @@ public class KeywordSearchActivity extends ActionBarActivity {
                     JSONObject match = (JSONObject) matche;
                     String name = match.get("recipeName").toString();
 
+                    String id = match.get("id").toString();
+
                     JSONArray urls = (JSONArray) match.get("smallImageUrls");
                     ArrayList<String> imageUrls = new ArrayList<String>();
                     for (Object url : urls) {
                         imageUrls.add((String) url);
                     }
 
-                    recipeArray.add(new Recipe(name, imageUrls));
+                    recipeArray.add(new Recipe(name, id, imageUrls));
                 }
             }
             catch(ParseException pe) {

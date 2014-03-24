@@ -19,15 +19,25 @@ class QueryRecipeAPI {
     private static final String DEBUG_TAG = "YummlyHttpRequest";
     private static final String APP_ID = "4bcf4728";
     private static final String APP_KEY = "b10229904b6cd56f18b8f3264bb29b48";
-    private static final String LIST_URL = "http://api.yummly.com/v1/api/recipes?_app_id="+APP_ID+"&_app_key="+APP_KEY+"&";
+    private static final String LIST_URL = "http://api.yummly.com/v1/api/recipes";
+    private static final String RECIPE_URL = "http://api.yummly.com/v1/api/recipe/";
+    private static final String APP_CREDENTIALS = "?_app_id="+APP_ID+"&_app_key="+APP_KEY+"&";
 
     // Given a URL, establishes an HttpUrlConnection and retrieves
     // the web page content as a InputStream, which it returns as
     // a string.
-    public static String downloadRecipeList(String keywords) throws IOException {
+
+    public static String downloadRecipe (String id) throws IOException {
+        return download (RECIPE_URL+id+APP_CREDENTIALS);
+    }
+
+    public static String downloadRecipeList (String keywords) throws IOException{
+        return download (LIST_URL+APP_CREDENTIALS + "q="+keywords+"&requirePictures=true");
+    }
+
+    public static String download (String myurl) throws IOException {
         InputStream is = null;
         //TODO:Encode keywords properly
-        String myurl = LIST_URL + "q=" + keywords;
         // Only display the first 500 characters of the retrieved
         // web page content.
         try {
