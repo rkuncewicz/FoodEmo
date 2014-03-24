@@ -7,13 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -22,11 +19,11 @@ import java.util.List;
  * Created by certeis on 08/03/14.
  */
 public class ImageAdapter extends BaseAdapter implements OnTaskCompleted {
-    private Context mContext;
-    private LruCache<String, Bitmap> mMemoryCache;
-    private List<Recipe> recipes;
-    private HashMap imageViewMap;
-    private LayoutInflater layoutInflater;
+    private final Context mContext;
+    private final LruCache<String, Bitmap> mMemoryCache;
+    private final List<Recipe> recipes;
+    private final HashMap imageViewMap;
+    private final LayoutInflater layoutInflater;
 
 
     public ImageAdapter(Context c, List<Recipe> recipes) {

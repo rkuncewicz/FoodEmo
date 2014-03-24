@@ -4,9 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
-import android.support.v4.util.LruCache;
 import android.util.Log;
-import android.widget.ImageView;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -14,18 +12,15 @@ import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpGet;
 
 import java.io.InputStream;
-import java.lang.ref.WeakReference;
 
 /**
  * Created by certeis on 08/03/14.
  */
 public class ImageDownloader {
     private OnTaskCompleted listener;
-    private int position;
 
     public ImageDownloader (OnTaskCompleted listener, int position){
         this.listener = listener;
-        this.position = position;
     }
 
     public ImageDownloader(OnTaskCompleted listener){
@@ -43,6 +38,7 @@ public class ImageDownloader {
         private String recipeName;
 
         public BitmapDownloaderTask(String recipeName) {
+            url = "";
             this.recipeName = recipeName;
         }
 
