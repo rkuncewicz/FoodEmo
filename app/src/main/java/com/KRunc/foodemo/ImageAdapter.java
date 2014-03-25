@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -87,7 +88,7 @@ public class ImageAdapter extends BaseAdapter implements OnTaskCompleted {
         imageView = (ImageView)view.findViewById(R.id.image);
         textView = (TextView)view.findViewById(R.id.title);
 
-        imageView.setLayoutParams(new LinearLayout.LayoutParams(columnWidth, columnWidth));
+        imageView.setLayoutParams(new RelativeLayout.LayoutParams(columnWidth, columnWidth));
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
         Recipe recipe = recipes.get(position);
@@ -97,9 +98,10 @@ public class ImageAdapter extends BaseAdapter implements OnTaskCompleted {
         imageViewMap.put (recipeName, imageView);
         Bitmap bitmap = getBitmapFromMemCache(recipeName);
         if (bitmap != null){
-            System.out.println ("Bitmap for "+recipe.getName()+" is not null.");
             imageView.setImageBitmap(bitmap);
         }
+        else System.out.println ("Bitmap for "+recipe.getName()+" is null.");
+
 
         return view;
     }

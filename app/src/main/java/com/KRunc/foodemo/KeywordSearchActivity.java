@@ -31,6 +31,7 @@ public class KeywordSearchActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_keyword_search);
         textView = (TextView) findViewById(R.id.testText);
+        textView.setText("");
     }
 
 
@@ -61,7 +62,7 @@ public class KeywordSearchActivity extends ActionBarActivity {
         EditText editText = (EditText) findViewById(R.id.edit_message);
         String keywords = "";
         if (editText.getText() != null) keywords = editText.getText().toString();
-
+        keywords = keywords.replace(" ", "+");
         System.out.println(keywords);
         if (networkInfo != null && networkInfo.isConnected()) {
             DownloadWebpageTask task = new DownloadWebpageTask();
@@ -75,6 +76,8 @@ public class KeywordSearchActivity extends ActionBarActivity {
     void gotoRecipeList(ArrayList<Recipe> recipes){
         Intent intent = new Intent(this, RecipeListActivity.class);
         intent.putParcelableArrayListExtra("recipes", recipes);
+        textView.setText("");
+
         startActivity(intent);
     }
 

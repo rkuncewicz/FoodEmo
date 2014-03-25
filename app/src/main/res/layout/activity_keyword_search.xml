@@ -1,5 +1,6 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -12,25 +13,36 @@
         android:text="@string/keyword_message"
         android:textSize="60sp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <EditText android:id="@+id/edit_message"
-        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/keyword_text"
-        android:layout_toLeftOf="@+id/button_send"
-        android:hint="@string/keyword_text_message" />
-    <Button android:id="@+id/button_send"
+        android:gravity="center"
+        android:layout_weight="1"/>
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/keyword_text"
-        android:layout_alignParentRight="true"
-        android:text="@string/button_send"
-        android:onClick="searchRecipes" />
+        android:orientation="horizontal"
+        android:layout_weight="1">
+        <EditText android:id="@+id/edit_message"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/keyword_text"
+            android:layout_toLeftOf="@+id/button_send"
+            android:hint="@string/keyword_text_message"
+            android:singleLine="true"
+            android:layout_weight="1"/>
+        <Button android:id="@+id/button_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/keyword_text"
+            android:layout_alignParentRight="true"
+            android:text="@string/button_send"
+            android:onClick="searchRecipes" />
+        </LinearLayout>
     <TextView android:id="@+id/testText"
         android:textSize="60sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button_send" />
+        android:layout_below="@+id/button_send"
+        android:layout_weight="1"/>
 
 
-</RelativeLayout>
+</LinearLayout>

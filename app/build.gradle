@@ -24,4 +24,5 @@ dependencies {
     compile files('lib/google-gson-2.2.4/gson-2.2.4.jar')
     compile files('lib/json-simple-1.1.1.jar')
     compile files('lib/commons-io-2.4/commons-io-2.4.jar')
+    compile files('lib/achartengine-1.1.0.jar')
 }
