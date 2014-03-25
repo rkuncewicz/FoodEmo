@@ -97,6 +97,7 @@ public class ImageAdapter extends BaseAdapter implements OnTaskCompleted {
         imageViewMap.put (recipeName, imageView);
         Bitmap bitmap = getBitmapFromMemCache(recipeName);
         if (bitmap != null){
+            System.out.println ("Bitmap for "+recipe.getName()+" is not null.");
             imageView.setImageBitmap(bitmap);
         }
 
@@ -104,17 +105,16 @@ public class ImageAdapter extends BaseAdapter implements OnTaskCompleted {
     }
 
     public void onTaskCompleted (Bitmap bitmap, String recipeName) {
+        addBitmapToMemoryCache(recipeName, bitmap);
+
         ImageView imageView = (ImageView) imageViewMap.get(recipeName);
         if (imageView != null) {
-            if (imageView != null) {
-                addBitmapToMemoryCache(recipeName, bitmap);
-                imageView.setImageBitmap(bitmap);
-            }
+            imageView.setImageBitmap(bitmap);
         }
     }
 
     public void addBitmapToMemoryCache(String key, Bitmap bitmap) {
-        if (getBitmapFromMemCache(key) == null) {
+        if (getBitmapFromMemCache(key) == null && bitmap != null) {
             mMemoryCache.put(key, bitmap);
         }
     }

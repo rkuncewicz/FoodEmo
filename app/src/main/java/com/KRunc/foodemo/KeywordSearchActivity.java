@@ -62,6 +62,7 @@ public class KeywordSearchActivity extends ActionBarActivity {
         String keywords = "";
         if (editText.getText() != null) keywords = editText.getText().toString();
 
+        System.out.println(keywords);
         if (networkInfo != null && networkInfo.isConnected()) {
             DownloadWebpageTask task = new DownloadWebpageTask();
             task.execute(keywords);

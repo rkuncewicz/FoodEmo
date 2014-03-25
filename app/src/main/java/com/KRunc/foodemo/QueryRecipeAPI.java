@@ -36,6 +36,7 @@ class QueryRecipeAPI {
     }
 
     public static String download (String myurl) throws IOException {
+        System.out.println ("My url "+myurl);
         InputStream is = null;
         //TODO:Encode keywords properly
         // Only display the first 500 characters of the retrieved

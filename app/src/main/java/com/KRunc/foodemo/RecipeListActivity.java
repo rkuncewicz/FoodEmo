@@ -31,6 +31,7 @@ public class RecipeListActivity extends ActionBarActivity {
             for (int j = 0; j < urls.length; j++) {
                 urls[j] = urls[j].replace(".s.png",".l.png");
                 urls[j] = urls[j].replace(".s.jpg", ".l.jpg");
+                urls[j] = urls[j].replace("=s90", "=s300");
             }
             recipe.setPictureUrls(urls);
             recipes.set(i, recipe);
