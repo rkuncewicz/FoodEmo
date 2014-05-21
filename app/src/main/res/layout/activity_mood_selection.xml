@@ -23,4 +23,5 @@ tools:context="com.KRunc.foodemo.MoodSelectionActivity$PlaceholderFragment">
         android:layout_below="@+id/section_label"
         tools:context="com.KRunc.foodemo.MoodSelectionActivity" />
 
+
 </RelativeLayout>

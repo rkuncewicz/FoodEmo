@@ -40,25 +40,14 @@ public class MoodSelectionActivity extends ActionBarActivity implements RequestC
 
     private static final String ARG_SECTION_NUMBER = "section_number";
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentStatePagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
     SectionsPagerAdapter mSectionsPagerAdapter;
-
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
     ViewPager mViewPager;
 
     public int section;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        System.out.println ("created");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mood_selection);
 
@@ -327,7 +316,7 @@ public class MoodSelectionActivity extends ActionBarActivity implements RequestC
             }
 
             @Override
-            public void onClick(View v)
+            public void onClick(View pview)
             {
                 callback.setupRequest (choice, choices);
             }

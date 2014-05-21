@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -54,6 +55,8 @@ public class KeywordSearchActivity extends ActionBarActivity {
 
     public void searchRecipes(View view){
         textView.setText("Searching...");
+        Button sendButton = (Button) findViewById(R.id.button_send);
+        sendButton.setEnabled(false);
 
         ConnectivityManager connMgr = (ConnectivityManager)
                 getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -77,7 +80,8 @@ public class KeywordSearchActivity extends ActionBarActivity {
         Intent intent = new Intent(this, RecipeListActivity.class);
         intent.putParcelableArrayListExtra("recipes", recipes);
         textView.setText("");
-
+        Button sendButton = (Button) findViewById(R.id.button_send);
+        sendButton.setEnabled(true);
         startActivity(intent);
     }
 
