@@ -13,15 +13,14 @@ import org.apache.http.client.methods.HttpGet;
 
 import java.io.InputStream;
 
+import Interfaces.Downloader;
+import Interfaces.OnTaskCompleted;
+
 /**
  * Created by certeis on 08/03/14.
  */
-public class ImageDownloader {
-    private OnTaskCompleted listener;
-
-    public ImageDownloader (OnTaskCompleted listener, int position){
-        this.listener = listener;
-    }
+public class ImageDownloader implements Downloader {
+    private final OnTaskCompleted listener;
 
     public ImageDownloader(OnTaskCompleted listener){
         this.listener = listener;
@@ -34,8 +33,8 @@ public class ImageDownloader {
     }
 
     class BitmapDownloaderTask extends AsyncTask<String, Void, Bitmap> {
-        private String url;
-        private String recipeName;
+        private final String url;
+        private final String recipeName;
 
         public BitmapDownloaderTask(String recipeName) {
             url = "";
@@ -57,42 +56,44 @@ public class ImageDownloader {
             }
             listener.onTaskCompleted(bitmap, recipeName);
         }
-    }
-    static Bitmap downloadBitmap(String url) {
-        final AndroidHttpClient client = AndroidHttpClient.newInstance("Android");
-        final HttpGet getRequest = new HttpGet(url);
 
-        try {
-            HttpResponse response = client.execute(getRequest);
-            final int statusCode = response.getStatusLine().getStatusCode();
-            if (statusCode != HttpStatus.SC_OK) {
-                Log.w("ImageDownloader", "Error " + statusCode + " while retrieving bitmap from " + url);
-                return null;
-            }
+        Bitmap downloadBitmap(String url) {
+            final AndroidHttpClient client = AndroidHttpClient.newInstance("Android");
+            final HttpGet getRequest = new HttpGet(url);
 
-            final HttpEntity entity = response.getEntity();
-            if (entity != null) {
-                InputStream inputStream = null;
-                try {
-                    inputStream = entity.getContent();
-                    final Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                    return bitmap;
-                } finally {
-                    if (inputStream != null) {
-                        inputStream.close();
+            try {
+                HttpResponse response = client.execute(getRequest);
+                final int statusCode = response.getStatusLine().getStatusCode();
+                if (statusCode != HttpStatus.SC_OK) {
+                    Log.w("ImageDownloader", "Error " + statusCode + " while retrieving bitmap from " + url);
+                    return null;
+                }
+
+                final HttpEntity entity = response.getEntity();
+                if (entity != null) {
+                    InputStream inputStream = null;
+                    try {
+                        inputStream = entity.getContent();
+                        final Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                        return bitmap;
+                    } finally {
+                        if (inputStream != null) {
+                            inputStream.close();
+                        }
+                        entity.consumeContent();
                     }
-                    entity.consumeContent();
+                }
+            } catch (Exception e) {
+                // Could provide a more explicit error message for IOException or IllegalStateException
+                getRequest.abort();
+                Log.w("ImageDownloader: Error while retrieving bitmap from " + url, e.toString());
+            } finally {
+                if (client != null) {
+                    client.close();
                 }
             }
-        } catch (Exception e) {
-            // Could provide a more explicit error message for IOException or IllegalStateException
-            getRequest.abort();
-            Log.w("ImageDownloader: Error while retrieving bitmap from " + url, e.toString());
-        } finally {
-            if (client != null) {
-                client.close();
-            }
+            return null;
         }
-        return null;
     }
+
 }

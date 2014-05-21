@@ -4,30 +4,31 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
-import java.util.List;
+
+import Interfaces.Recipe;
 
 /**
  * Created by Robert Kuncewicz on 26/02/14.
  * FoodEmo Recipe Application
  */
-public class Recipe implements Parcelable {
-    private String name;
-    private String id;
+public class YummlyRecipe implements Recipe {
+    private final String name;
+    private final String id;
     private String[] pictureUrls;
-    private String totalTime;
-    private long totalTimeInSeconds;
-    private long rating;
-    private long numOfServing;
-    private String[] ingredientLines;
-    private String source;
+    private String totalTime = null;
+    private long totalTimeInSeconds = 0L;
+    private long rating = 0L;
+    private long numOfServing = 0L;
+    private String[] ingredientLines = null;
+    private String source = null;
 
-    public Recipe(String name, String id, ArrayList<String> pictureUrls){
+    public YummlyRecipe(String name, String id, ArrayList<String> pictureUrls){
         this.name = name;
         this.id = id;
         this.pictureUrls = pictureUrls.toArray(new String[pictureUrls.size()]);
     }
 
-    public Recipe (String name, String id, ArrayList<String> pictureUrls, String totalTime, long totalTimeInSeconds,
+    public YummlyRecipe (String name, String id, ArrayList<String> pictureUrls, String totalTime, long totalTimeInSeconds,
                         long rating, long numOfServing, ArrayList<String> ingredientLines, String source){
         this.name = name;
         this.id = id;
@@ -62,17 +63,17 @@ public class Recipe implements Parcelable {
         parcel.writeStringArray(pictureUrls);
     }
 
-    public static final Parcelable.Creator<Recipe> CREATOR = new Parcelable.Creator<Recipe>() {
-        public Recipe createFromParcel(Parcel in) {
-            return new Recipe(in);
+    public static final Parcelable.Creator<YummlyRecipe> CREATOR = new Parcelable.Creator<YummlyRecipe>() {
+        public YummlyRecipe createFromParcel(Parcel in) {
+            return new YummlyRecipe(in);
         }
 
-        public Recipe[] newArray(int size) {
-            return new Recipe[size];
+        public YummlyRecipe[] newArray(int size) {
+            return new YummlyRecipe[size];
         }
     };
 
-    private Recipe(Parcel in) {
+    private YummlyRecipe(Parcel in) {
         name = in.readString();
         id = in.readString();
         pictureUrls = in.createStringArray();

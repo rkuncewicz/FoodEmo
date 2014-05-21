@@ -11,12 +11,12 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+
+import Interfaces.Recipe;
 
 public class RecipeListActivity extends ActionBarActivity {
-    private ArrayList<Recipe> recipes;
-    private ImageAdapter imgAdapter;
+    private ArrayList<Recipe> recipes = null;
+    private ImageAdapter imgAdapter = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +24,6 @@ public class RecipeListActivity extends ActionBarActivity {
         setContentView(R.layout.activity_recipe_list);
         recipes = getIntent().getParcelableArrayListExtra("recipes");
 
-        ArrayList<String> recipePictures = new ArrayList<String>();
         for (int i = 0; i < recipes.size(); i++){
             Recipe recipe = recipes.get(i);
             String[] urls = recipe.getPictureUrls();
@@ -49,7 +48,7 @@ public class RecipeListActivity extends ActionBarActivity {
         });
     }
 
-    public void forwardToRecipeDesc (int id) {
+    void forwardToRecipeDesc(int id) {
         Recipe recipe = recipes.get(id);
 
         Intent intent = new Intent(this, RecipeDescriptionActivity.class);

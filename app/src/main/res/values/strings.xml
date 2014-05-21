@@ -22,5 +22,7 @@
     <string name="title_activity_recipe_list">RecipeListActivity</string>
     <string name="title_activity_recipe_description">RecipeDescriptionActivity</string>
     <string name="cook_me">Cook Me!</string>
+    <string name="cook_time">Cook Time</string>
+    <string name="ingredients">Ingredients</string>
 
 </resources>

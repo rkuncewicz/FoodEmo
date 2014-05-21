@@ -46,7 +46,6 @@ public class MainActivity extends ActionBarActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle presses on the action bar items
-        Intent intent;
         switch (item.getItemId()) {
             case R.id.action_search:
                 //intent = new Intent(this, DisplayMessageActivity.class);
@@ -72,8 +71,7 @@ public class MainActivity extends ActionBarActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            return rootView;
+            return(inflater.inflate(R.layout.fragment_main, container, false));
         }
     }
 

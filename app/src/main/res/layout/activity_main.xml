@@ -43,6 +43,7 @@
         android:weightSum="2">
 
         <ImageButton android:id="@+id/mood_button"
+            android:contentDescription="Search using moods"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:text="@string/mood_message"
@@ -53,6 +54,7 @@
             android:onClick="gotoMoodSearch"/>
 
         <ImageButton android:id="@+id/search_button"
+            android:contentDescription="Search using keywords"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_toRightOf="@+id/mood_button"

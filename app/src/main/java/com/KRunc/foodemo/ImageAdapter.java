@@ -8,32 +8,33 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import Interfaces.*;
+
 /**
  * Created by certeis on 08/03/14.
  */
-public class ImageAdapter extends BaseAdapter implements OnTaskCompleted {
-    private final Context mContext;
+public class ImageAdapter extends BaseAdapter implements Adapter {
     private final LruCache<String, Bitmap> mMemoryCache;
     private final List<Recipe> recipes;
-    private final HashMap imageViewMap;
+    private final AbstractMap imageViewMap;
     private final LayoutInflater layoutInflater;
+    private static final int aKB = 1024;
 
 
     public ImageAdapter(Context c, List<Recipe> recipes) {
         this.recipes = recipes;
         imageViewMap = new HashMap();
         layoutInflater = LayoutInflater.from(c);
-        mContext = c;
 
-        final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
+        final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / aKB);
         // Use 1/8th of the available memory for this memory cache.
         final int cacheSize = maxMemory / 8;
 
@@ -41,7 +42,7 @@ public class ImageAdapter extends BaseAdapter implements OnTaskCompleted {
             protected int sizeOf(String key, Bitmap bitmap) {
                 // The cache size will be measured in kilobytes rather than
                 // number of items.
-                return bitmap.getByteCount() / 1024;
+                return bitmap.getByteCount() / aKB;
             }
         };
 
@@ -52,7 +53,7 @@ public class ImageAdapter extends BaseAdapter implements OnTaskCompleted {
         Iterator recipeItr = recipes.iterator();
         while (recipeItr.hasNext()) {
             Recipe recipe = (Recipe) recipeItr.next();
-            ImageDownloader downloadImg = new ImageDownloader (this);
+            Downloader downloadImg = new ImageDownloader (this);
             String[] urls = recipe.getPictureUrls();
             downloadImg.download(urls[0], recipe.getName());
         }
@@ -79,7 +80,7 @@ public class ImageAdapter extends BaseAdapter implements OnTaskCompleted {
             view = layoutInflater.inflate(R.layout.thumb_image, null);
         }
         else {
-            view = (View)convertView;
+            view = convertView;
             //imageView = (ImageView) convertView;
         }
 

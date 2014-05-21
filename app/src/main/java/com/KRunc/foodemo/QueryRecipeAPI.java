@@ -22,6 +22,8 @@ class QueryRecipeAPI {
     private static final String LIST_URL = "http://api.yummly.com/v1/api/recipes";
     private static final String RECIPE_URL = "http://api.yummly.com/v1/api/recipe/";
     private static final String APP_CREDENTIALS = "?_app_id="+APP_ID+"&_app_key="+APP_KEY+"&";
+    private static final int readTimeout = 10000;
+    private static final int connectTimeout = 15000;
 
     // Given a URL, establishes an HttpUrlConnection and retrieves
     // the web page content as a InputStream, which it returns as
@@ -35,7 +37,7 @@ class QueryRecipeAPI {
         return download (LIST_URL+APP_CREDENTIALS + "q="+keywords+"&requirePictures=true");
     }
 
-    public static String download (String myurl) throws IOException {
+    private static String download(String myurl) throws IOException {
         System.out.println ("My url "+myurl);
         InputStream is = null;
         //TODO:Encode keywords properly
@@ -44,8 +46,8 @@ class QueryRecipeAPI {
         try {
             URL url = new URL(myurl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setReadTimeout(10000 /* milliseconds */);
-            conn.setConnectTimeout(15000 /* milliseconds */);
+            conn.setReadTimeout(readTimeout /* milliseconds */);
+            conn.setConnectTimeout(connectTimeout /* milliseconds */);
             conn.setRequestMethod("GET");
             conn.setDoInput(true);
             // Starts the query

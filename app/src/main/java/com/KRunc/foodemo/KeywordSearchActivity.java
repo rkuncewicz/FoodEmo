@@ -21,7 +21,8 @@ import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
+
+import Interfaces.Recipe;
 
 public class KeywordSearchActivity extends ActionBarActivity {
 
@@ -116,7 +117,7 @@ public class KeywordSearchActivity extends ActionBarActivity {
                         imageUrls.add((String) url);
                     }
 
-                    recipeArray.add(new Recipe(name, id, imageUrls));
+                    recipeArray.add(new YummlyRecipe(name, id, imageUrls));
                 }
             }
             catch(ParseException pe) {

@@ -11,18 +11,19 @@ import android.text.Html;
 import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.achartengine.GraphicalView;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
+import java.util.AbstractList;
 import java.util.ArrayList;
+
+import Interfaces.Recipe;
 
 public class RecipeDescriptionActivity extends ActionBarActivity {
 
@@ -62,7 +63,7 @@ public class RecipeDescriptionActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void getRecipe (String id){
+    void getRecipe(String id){
         ConnectivityManager connMgr = (ConnectivityManager)
                 getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
@@ -75,7 +76,7 @@ public class RecipeDescriptionActivity extends ActionBarActivity {
         }
     }
 
-    public void displayInfo (Recipe recipe) {
+    void displayInfo(Recipe recipe) {
         if (recipe != null){
             TextView ingredientView = (TextView) findViewById(R.id.recipe_ingredients);
             String[] ingredientLines = recipe.getIngredientLines();
@@ -122,12 +123,12 @@ public class RecipeDescriptionActivity extends ActionBarActivity {
                 ArrayList<String> imageUrls = new ArrayList<String>();
 
                 JSONArray ingredientLines = (JSONArray) match.get("ingredientLines");
-                ArrayList<String> ingredients = new ArrayList<String>();
+                AbstractList<String> ingredients = new ArrayList<String>();
                 for (Object line : ingredientLines) {
                     ingredients.add((String) line);
                 }
 
-                displayInfo(new Recipe(name, id, imageUrls, totalTime, totalTimeInSeconds, rating, numOfServing, ingredientLines, source));
+                displayInfo(new YummlyRecipe(name, id, imageUrls, totalTime, totalTimeInSeconds, rating, numOfServing, ingredientLines, source));
             }
             catch(ParseException pe) {
                 System.out.println("position: " + pe.getPosition());
