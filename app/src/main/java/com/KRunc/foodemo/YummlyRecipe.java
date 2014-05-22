@@ -48,6 +48,11 @@ public class YummlyRecipe implements Recipe {
     public String getTotalTime() { return totalTime; }
 
     public void setPictureUrls(String[] pictureUrls) {
+        for (int j = 0; j < pictureUrls.length; j++) {
+            pictureUrls[j] = pictureUrls[j].replace(".s.png",".l.png");
+            pictureUrls[j] = pictureUrls[j].replace(".s.jpg", ".l.jpg");
+            pictureUrls[j] = pictureUrls[j].replace("=s90", "=s300");
+        }
         this.pictureUrls = pictureUrls;
     }
 
@@ -77,5 +82,9 @@ public class YummlyRecipe implements Recipe {
         name = in.readString();
         id = in.readString();
         pictureUrls = in.createStringArray();
+    }
+
+    public String toString(){
+        return (name);
     }
 }

@@ -26,18 +26,12 @@ public class RecipeListActivity extends ActionBarActivity {
 
         for (int i = 0; i < recipes.size(); i++){
             Recipe recipe = recipes.get(i);
-            String[] urls = recipe.getPictureUrls();
-            for (int j = 0; j < urls.length; j++) {
-                urls[j] = urls[j].replace(".s.png",".l.png");
-                urls[j] = urls[j].replace(".s.jpg", ".l.jpg");
-                urls[j] = urls[j].replace("=s90", "=s300");
-            }
-            recipe.setPictureUrls(urls);
+            recipe.setPictureUrls(recipe.getPictureUrls());
             recipes.set(i, recipe);
         }
 
         GridView gridview = (GridView) findViewById(R.id.gridview);
-        imgAdapter = new ImageAdapter(this, recipes);
+        imgAdapter = new ImageAdapter(this, recipes, getFragmentManager());
         gridview.setAdapter(imgAdapter);
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {

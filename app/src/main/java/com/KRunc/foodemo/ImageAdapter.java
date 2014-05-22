@@ -1,7 +1,10 @@
 package com.KRunc.foodemo;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.support.v4.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,14 +25,14 @@ import Interfaces.*;
  * Created by certeis on 08/03/14.
  */
 public class ImageAdapter extends BaseAdapter implements Adapter {
-    private final LruCache<String, Bitmap> mMemoryCache;
+    private LruCache<String, Bitmap> mMemoryCache;
     private final List<Recipe> recipes;
     private final AbstractMap imageViewMap;
     private final LayoutInflater layoutInflater;
     private static final int aKB = 1024;
 
 
-    public ImageAdapter(Context c, List<Recipe> recipes) {
+    public ImageAdapter(Context c, List<Recipe> recipes, FragmentManager fragmentManager) {
         this.recipes = recipes;
         imageViewMap = new HashMap();
         layoutInflater = LayoutInflater.from(c);
@@ -38,25 +41,28 @@ public class ImageAdapter extends BaseAdapter implements Adapter {
         // Use 1/8th of the available memory for this memory cache.
         final int cacheSize = maxMemory / 8;
 
-        mMemoryCache = new LruCache<String, Bitmap>(cacheSize) {
-            protected int sizeOf(String key, Bitmap bitmap) {
-                // The cache size will be measured in kilobytes rather than
-                // number of items.
-                return bitmap.getByteCount() / aKB;
+        RetainFragment retainFragment = RetainFragment.findOrCreateRetainFragment(fragmentManager);
+        mMemoryCache = retainFragment.mRetainedCache;
+        if (mMemoryCache == null) {
+            mMemoryCache = new LruCache<String, Bitmap>(cacheSize) {
+                protected int sizeOf(String key, Bitmap bitmap) {
+                    // The cache size will be measured in kilobytes rather than
+                    // number of items.
+                    return bitmap.getByteCount() / aKB;
+                }
+            };
+            retainFragment.mRetainedCache = mMemoryCache;
+
+            Iterator recipeItr = recipes.iterator();
+            while (recipeItr.hasNext()) {
+                Recipe recipe = (Recipe) recipeItr.next();
+                Downloader downloadImg = new ImageDownloader (this);
+                String[] urls = recipe.getPictureUrls();
+                downloadImg.download(urls[0], recipe.getName());
             }
-        };
-
-        downloadRecipes();
-    }
-
-    private void downloadRecipes(){
-        Iterator recipeItr = recipes.iterator();
-        while (recipeItr.hasNext()) {
-            Recipe recipe = (Recipe) recipeItr.next();
-            Downloader downloadImg = new ImageDownloader (this);
-            String[] urls = recipe.getPictureUrls();
-            downloadImg.download(urls[0], recipe.getName());
         }
+
+
     }
 
     public int getCount() {
@@ -81,7 +87,6 @@ public class ImageAdapter extends BaseAdapter implements Adapter {
         }
         else {
             view = convertView;
-            //imageView = (ImageView) convertView;
         }
 
         int columnWidth = parent.getWidth() / 2;
@@ -101,9 +106,6 @@ public class ImageAdapter extends BaseAdapter implements Adapter {
         if (bitmap != null){
             imageView.setImageBitmap(bitmap);
         }
-        else System.out.println ("Bitmap for "+recipe.getName()+" is null.");
-
-
         return view;
     }
 
@@ -112,7 +114,9 @@ public class ImageAdapter extends BaseAdapter implements Adapter {
 
         ImageView imageView = (ImageView) imageViewMap.get(recipeName);
         if (imageView != null) {
+            System.out.println("Adding and setting bitmap for " +recipeName);
             imageView.setImageBitmap(bitmap);
+            this.notifyDataSetChanged();
         }
     }
 
@@ -124,5 +128,27 @@ public class ImageAdapter extends BaseAdapter implements Adapter {
 
     public Bitmap getBitmapFromMemCache(String key) {
         return mMemoryCache.get(key);
+    }
+}
+
+class RetainFragment extends Fragment {
+    private static final String TAG = "RetainFragment";
+    public LruCache<String, Bitmap> mRetainedCache;
+
+    public RetainFragment() {}
+
+    public static RetainFragment findOrCreateRetainFragment(FragmentManager fm) {
+        RetainFragment fragment = (RetainFragment) fm.findFragmentByTag(TAG);
+        if (fragment == null) {
+            fragment = new RetainFragment();
+            fm.beginTransaction().add(fragment, TAG).commit();
+        }
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
     }
 }

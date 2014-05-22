@@ -77,15 +77,6 @@ public class KeywordSearchActivity extends ActionBarActivity {
         }
     }
 
-    void gotoRecipeList(ArrayList<Recipe> recipes){
-        Intent intent = new Intent(this, RecipeListActivity.class);
-        intent.putParcelableArrayListExtra("recipes", recipes);
-        textView.setText("");
-        Button sendButton = (Button) findViewById(R.id.button_send);
-        sendButton.setEnabled(true);
-        startActivity(intent);
-    }
-
     private class DownloadWebpageTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... urls) {
@@ -126,5 +117,14 @@ public class KeywordSearchActivity extends ActionBarActivity {
             }
             gotoRecipeList(recipeArray);
         }
+    }
+
+    void gotoRecipeList(ArrayList<Recipe> recipes){
+        Intent intent = new Intent(this, RecipeListActivity.class);
+        intent.putParcelableArrayListExtra("recipes", recipes);
+        textView.setText("");
+        Button sendButton = (Button) findViewById(R.id.button_send);
+        sendButton.setEnabled(true);
+        startActivity(intent);
     }
 }
